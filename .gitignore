@@ -1,0 +1,11 @@
+# Ignore temp File
+.tmp
+
+# Ignore Git File
+!*.gitkeep
+
+# Ignore Bin File
+bin/*
+
+# Ignore Vscode files
+.vscode/*
