@@ -1,0 +1,9 @@
+[app]
+    appEnv = "prod"
+
+[db]
+    host     = "postgres"
+    port     = 5432
+    user     = "test"
+    password = "test"
+    dbname   = "shorten_urls"
