@@ -5,10 +5,10 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/priince938/app/internal/boot"
-	"github.com/priince938/app/internal/database"
-	"github.com/priince938/app/internal/provider/config"
-	"github.com/priince938/app/internal/router"
+	"github.com/priince9381/Url-Shortener/app/internal/boot"
+	"github.com/priince9381/Url-Shortener/app/internal/database"
+	"github.com/priince9381/Url-Shortener/app/internal/provider/config"
+	"github.com/priince9381/Url-Shortener/app/internal/router"
 )
 
 func main() {

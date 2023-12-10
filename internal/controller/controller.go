@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/priince938/app/internal/database"
-	"github.com/priince938/app/internal/utils"
+	"github.com/priince9381/Url-Shortener/app/internal/database"
+	"github.com/priince9381/Url-Shortener/app/internal/utils"
 	"gorm.io/gorm"
 )
 

@@ -5,9 +5,9 @@ import (
 	"log"
 	"os"
 
-	"github.com/priince938/app/internal/config"
-	provider_config "github.com/priince938/app/internal/provider/config"
-	config_reader "github.com/priince938/app/pkg/config"
+	"github.com/priince9381/Url-Shortener/app/internal/config"
+	provider_config "github.com/priince9381/Url-Shortener/app/internal/provider/config"
+	config_reader "github.com/priince9381/Url-Shortener/app/pkg/config"
 )
 
 func NewContext(ctx context.Context) context.Context {

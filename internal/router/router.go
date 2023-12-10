@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/gorilla/mux"
-	"github.com/priince938/app/internal/controller"
+	"github.com/priince9381/Url-Shortener/app/internal/controller"
 )
 
 func Router(ctx context.Context) *mux.Router {

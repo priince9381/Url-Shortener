@@ -1,4 +1,4 @@
-module github.com/priince938/app
+module github.com/priince9381/Url-Shortener/app
 
 go 1.21.5
 
