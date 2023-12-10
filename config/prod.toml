@@ -1,5 +1,5 @@
 [app]
-    appEnv = "prod"
+    env = "prod"
 
 [db]
     host     = "postgres"
