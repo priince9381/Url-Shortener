@@ -40,3 +40,7 @@ func InitDB(ctx context.Context, config Database) {
 		log.Fatal("Failed to auto migrate tables:", err)
 	}
 }
+
+func GetDB() *gorm.DB {
+	return DB
+}

@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: url-shortener-container
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: url-shortener
+      POSTGRES_USER: mysappuser
+      POSTGRES_PASSWORD: myPassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # Mount init.sql into the container
+    networks:
+      - backend
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  backend:
+    driver: bridge
