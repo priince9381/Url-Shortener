@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -19,7 +18,6 @@ func main() {
 	// Log that the server has started
 	log.Println("Server started on :8080")
 	boot.Init()
-	fmt.Println(&config.Config.Database)
 	database.InitDB(ctx, config.Config.Database)
 
 	// Start the HTTP server on port 8080 and use the router for handling requests

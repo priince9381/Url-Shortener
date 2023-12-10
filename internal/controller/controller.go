@@ -2,17 +2,12 @@ package controller
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/priince938/app/internal/database"
 	"github.com/priince938/app/internal/utils"
 	"gorm.io/gorm"
 )
-
-type CreateShortURLRequest struct {
-	LongURL string `json:"long_url"`
-}
 
 func CreateShortURL(w http.ResponseWriter, r *http.Request) {
 	// Get the GORM DB instance
@@ -36,14 +31,13 @@ func CreateShortURL(w http.ResponseWriter, r *http.Request) {
 	result := db.Where("original_url = ?", longURL).First(&url)
 	if result.Error == nil {
 		response := map[string]string{
-			"short_url": fmt.Sprintf("/%s", url.ShortURL),
-			"Message":   "Url Already Exist",
+			"short_url": url.ShortURL,
+			"message":   "URL already exists",
 		}
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(response)
+		sendJSONResponse(w, http.StatusOK, response)
 		return
 	} else if result.Error != gorm.ErrRecordNotFound {
-		http.Error(w, "Database error", http.StatusInternalServerError)
+		sendJSONResponse(w, http.StatusInternalServerError, ErrorResponse{Message: "Database error"})
 		return
 	}
 
@@ -57,15 +51,14 @@ func CreateShortURL(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := db.Create(&newURL).Error; err != nil {
-		http.Error(w, "Failed to create short URL", http.StatusInternalServerError)
+		sendJSONResponse(w, http.StatusInternalServerError, ErrorResponse{Message: "Failed to create short URL"})
 		return
 	}
 
 	response := map[string]string{
-		"short_url": fmt.Sprintf("/%s", shortURL),
+		"short_url": shortURL,
 	}
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(response)
+	sendJSONResponse(w, http.StatusOK, response)
 }
 
 func RedirectURL(w http.ResponseWriter, r *http.Request) {
@@ -81,9 +74,16 @@ func RedirectURL(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, url.OriginalURL, http.StatusTemporaryRedirect)
 		return
 	} else if result.Error == gorm.ErrRecordNotFound {
-		http.Error(w, "Short URL is incorrect", http.StatusBadRequest)
+		sendJSONResponse(w, http.StatusBadRequest, ErrorResponse{Message: "hort URL is incorrect"})
 		return
 	}
+	sendJSONResponse(w, http.StatusInternalServerError, ErrorResponse{Message: "Database error"})
+}
 
-	http.Error(w, "Database error", http.StatusInternalServerError)
+func sendJSONResponse(w http.ResponseWriter, statusCode int, data interface{}) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(statusCode)
+	if data != nil {
+		json.NewEncoder(w).Encode(data)
+	}
 }

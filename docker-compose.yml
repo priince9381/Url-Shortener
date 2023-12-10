@@ -1,15 +1,16 @@
-# While Contain Docker Compose File Run Docker Compose build
 version: '3.8'
 services:
   api:
     build:
-      context: .  # Specify the correct build context
+      context: .
       dockerfile: build/Dockerfile
     ports:
-      - 8000:8000
+      - 8080:8080
     image: api
     container_name: api
     restart: on-failure
+    environment:       
+      APP_MODE: prod  
     depends_on:
       - database
     networks:
@@ -24,7 +25,7 @@ services:
     ports:
       - 5432:5432
     healthcheck:
-      test: [ "CMD","ping", "-h", "localhost" ]
+      test: [ "CMD", "ping", "-h", "localhost" ]
       interval: 30s
       timeout: 10s
       retries: 5
